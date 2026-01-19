@@ -1,0 +1,40 @@
+# Source files (use dist instead)
+*.ts
+!*.d.ts
+tsconfig.json
+
+# Config files
+.eslintrc.js
+.prettierrc
+.gitignore
+gulpfile.js
+
+# Development
+.idea/
+.vscode/
+.git/
+.github/
+
+# Test files
+*.test.ts
+*.spec.ts
+__tests__/
+test/
+tests/
+coverage/
+.nyc_output/
+
+# Build artifacts
+*.tgz
+
+# Documentation source
+docs/
+
+# Examples
+examples/
+
+# CI/CD
+.travis.yml
+.circleci/
+.gitlab-ci.yml
+azure-pipelines.yml
