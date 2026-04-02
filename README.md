@@ -8,31 +8,32 @@
 >
 > For licensing information, visit https://velobpa.com/licensing or contact licensing@velobpa.com.
 
-A comprehensive n8n community node for **Ripple Custody (Metaco Harmonize)** - the enterprise-grade institutional digital asset custody platform. This node provides 23 resources and 250+ operations for complete custody management, multi-chain transactions, tokenization, staking, DeFi integrations, cold storage operations, and regulatory compliance.
+An n8n community node for integrating with Ripple Custody's digital asset management platform. This node provides 6 resources with comprehensive operations for managing wallets, transactions, balances, keys, policies, and approvals in Ripple's institutional custody solution.
 
-![n8n](https://img.shields.io/badge/n8n-community--node-blue)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
+![n8n Community Node](https://img.shields.io/badge/n8n-Community%20Node-blue)
 ![License](https://img.shields.io/badge/license-BSL--1.1-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue)
-![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
+![Ripple](https://img.shields.io/badge/Ripple-Custody-0052CC)
+![Crypto](https://img.shields.io/badge/Crypto-Custody-gold)
+![Enterprise](https://img.shields.io/badge/Enterprise-Ready-green)
 
 ## Features
 
-- **23 Resource Categories** with 250+ operations for complete custody management
-- **15 Blockchain Networks** supported including Bitcoin, Ethereum, XRP, Solana, and more
-- **3 Credential Types**: API Key, HSM, and MPC authentication methods
-- **60+ Webhook Event Types** for real-time notifications and automation
-- **Enterprise Security**: Multi-signature policies, cold storage, key ceremonies
-- **Regulatory Compliance**: KYT screening, sanctions checks, travel rule, AML reporting
-- **DeFi & Trading**: Protocol connections, liquidity management, staking operations
-- **Comprehensive Documentation**: Full API coverage with examples
+- **Wallet Management** - Create, configure, and monitor institutional custody wallets
+- **Transaction Processing** - Execute, track, and manage digital asset transactions with enterprise-grade security
+- **Balance Monitoring** - Real-time balance tracking across multiple digital assets and currencies
+- **Key Management** - Secure cryptographic key generation, storage, and lifecycle management
+- **Policy Enforcement** - Configure and manage approval policies for transaction governance
+- **Approval Workflows** - Handle multi-signature approvals and compliance workflows
+- **Institutional Security** - Enterprise-grade security controls and audit trails
+- **Multi-Asset Support** - Support for XRP, Bitcoin, Ethereum, and other major digital assets
 
 ## Installation
 
 ### Community Nodes (Recommended)
 
-1. Open your n8n instance
-2. Go to **Settings** > **Community Nodes**
+1. Open n8n
+2. Go to **Settings** → **Community Nodes**
 3. Click **Install a community node**
 4. Enter `n8n-nodes-ripple-custody`
 5. Click **Install**
@@ -40,245 +41,164 @@ A comprehensive n8n community node for **Ripple Custody (Metaco Harmonize)** - t
 ### Manual Installation
 
 ```bash
+cd ~/.n8n
 npm install n8n-nodes-ripple-custody
 ```
 
 ### Development Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/Velocity-BPA/n8n-nodes-ripple-custody.git
 cd n8n-nodes-ripple-custody
-
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Link to n8n (Linux/macOS)
 mkdir -p ~/.n8n/custom
 ln -s $(pwd) ~/.n8n/custom/n8n-nodes-ripple-custody
-
-# Restart n8n
+n8n start
 ```
 
 ## Credentials Setup
 
-### API Key Credentials
-
-| Field | Description |
-|-------|-------------|
-| Environment | Production or Sandbox |
-| API URL | Custom API endpoint (optional) |
-| API Key | Your Ripple Custody API key |
-| API Secret | Your API secret for request signing |
-| Auth Method | HMAC, JWT, or mTLS |
-
-### HSM Credentials
-
-| Field | Description |
-|-------|-------------|
-| HSM Provider | Thales Luna, AWS CloudHSM, Azure HSM, Utimaco |
-| HSM Address | HSM module address/endpoint |
-| Partition | HSM partition name |
-| Credentials | HSM authentication credentials |
-
-### MPC Credentials
-
-| Field | Description |
-|-------|-------------|
-| MPC Protocol | Threshold ECDSA, Threshold EdDSA, Shamir |
-| Party ID | Your party identifier |
-| Key Share | Your encrypted key share |
-| Parties | Total number of parties |
-| Threshold | Required signatures threshold |
+| Field | Description | Required |
+|-------|-------------|----------|
+| API Key | Your Ripple Custody API key from the management console | Yes |
+| Environment | Environment (sandbox/production) | Yes |
+| Base URL | Custom API base URL if using private deployment | No |
 
 ## Resources & Operations
 
-### Core Operations
+### 1. Wallets
 
-| Resource | Operations |
-|----------|------------|
-| **Vault** | Create, Get, List, Update, Delete, Lock, Unlock, Get Balance, Get Audit |
-| **Wallet** | Create, Get, List, Update, Delete, Get Balance, Export |
-| **Address** | Generate, Get, List, Validate, Get Balance, Get Transactions |
-| **Transaction** | Create, Get, List, Submit, Cancel, Retry, Get Status, Get Receipt |
-| **Transfer** | Create, Get, List, Cancel, Confirm, Schedule, Get Recurring |
+| Operation | Description |
+|-----------|-------------|
+| Create | Create a new custody wallet for digital assets |
+| Get | Retrieve wallet details and configuration |
+| List | Get all wallets associated with your account |
+| Update | Modify wallet settings and configuration |
+| Delete | Remove a wallet from custody |
+| Get Address | Retrieve wallet address for specific asset |
 
-### Security & Signing
+### 2. Transactions
 
-| Resource | Operations |
-|----------|------------|
-| **Signing** | Sign Transaction, Sign Message, Get Request, Approve, Reject, Multi-Sign |
-| **Policy** | Create, Get, Update, Delete, Add Rules, Whitelist/Blacklist Management |
-| **Key Management** | Generate, Import, Export, Rotate, Archive, Get Shares, HSM Status |
-| **Cold Storage** | Get Vaults, Move In/Out, Schedule Transfer, Initiate/Complete OSO |
+| Operation | Description |
+|-----------|-------------|
+| Create | Initiate a new transaction from custody wallet |
+| Get | Retrieve transaction details and status |
+| List | Get transaction history with filtering options |
+| Cancel | Cancel a pending transaction |
+| Sign | Sign a transaction with custody keys |
+| Submit | Submit a signed transaction to the network |
+| Get Status | Check current status of transaction |
 
-### Blockchain & Assets
+### 3. Balances
 
-| Resource | Operations |
-|----------|------------|
-| **Blockchain** | Get Supported, Get Status, Block Height, Gas Price, Network Fee |
-| **Asset** | Get Supported, Get Price, Get Balance, Get History, Token/NFT Info |
-| **Tokenization** | Deploy Token, Mint, Burn, Transfer, Get Metadata, Pause/Resume |
-| **Smart Contract** | Deploy, Call, Execute, Get State, Get Events, Verify, Upgrade |
+| Operation | Description |
+|-----------|-------------|
+| Get | Retrieve balance for specific wallet and asset |
+| List | Get all balances across wallets |
+| Get History | Retrieve balance history over time |
+| Get by Asset | Get balances filtered by asset type |
+| Refresh | Force refresh of balance data |
 
-### DeFi & Trading
+### 4. Keys
 
-| Resource | Operations |
-|----------|------------|
-| **Staking** | Stake, Unstake, Claim Rewards, Delegate, Redelegate, Get Validators |
-| **DeFi** | Connect DApp, Execute, Add/Remove Liquidity, Swap, Harvest Yield |
-| **Trading** | Connect Exchange, Submit Order, Cancel, Get History, Withdraw/Deposit |
-| **Settlement** | Initiate, Confirm, Get Instructions, DVP Status, Export |
+| Operation | Description |
+|-----------|-------------|
+| Generate | Generate new cryptographic key pairs |
+| Get | Retrieve key information and metadata |
+| List | Get all keys in custody |
+| Archive | Archive keys that are no longer needed |
+| Get Public Key | Retrieve public key for external verification |
+| Rotate | Rotate keys according to security policies |
 
-### Compliance & Reporting
+### 5. Policies
 
-| Resource | Operations |
-|----------|------------|
-| **Compliance** | Screen Address/Transaction, Risk Score, Sanctions Check, Travel Rule |
-| **Reporting** | Create Report, Generate, Schedule, Get Data, Export |
-| **Custody** | Get Accounts, Sub-accounts, Internal Transfer, Generate Statement |
+| Operation | Description |
+|-----------|-------------|
+| Create | Create new approval and governance policies |
+| Get | Retrieve policy configuration |
+| List | Get all active policies |
+| Update | Modify existing policy rules |
+| Delete | Remove policy from system |
+| Test | Test policy against sample transactions |
 
-### Administration
+### 6. Approvals
 
-| Resource | Operations |
-|----------|------------|
-| **User Admin** | Create/Update/Delete User, Manage Roles, Permissions, Sessions |
-| **Webhook** | Create, Update, Delete, List, Test, Get Logs |
-| **Utility** | API Status, Version, Features, Rate Limits, Test Connection |
-
-## Trigger Node
-
-The **Ripple Custody Trigger** node supports 60+ event types:
-
-### Event Categories
-
-- **Transaction Events**: created, pending, confirmed, failed, cancelled
-- **Deposit Events**: detected, confirmed, credited
-- **Withdrawal Events**: requested, approved, completed, failed
-- **Vault Events**: created, updated, locked, unlocked
-- **Signing Events**: required, approved, rejected, completed
-- **Compliance Events**: alert, risk_detected, sanctions_match
-- **Staking Events**: staked, unstaked, rewards_claimed
-- **DeFi Events**: position_opened, position_closed, yield_harvested
+| Operation | Description |
+|-----------|-------------|
+| Create | Create approval request for transaction |
+| Get | Retrieve approval details and status |
+| List | Get pending approvals requiring action |
+| Approve | Approve a pending request |
+| Reject | Reject a pending approval request |
+| Get History | Retrieve approval audit history |
 
 ## Usage Examples
 
-### Create a Vault
-
 ```javascript
-// Node: Ripple Custody
-// Resource: Vault
-// Operation: Create
-
+// Create a new custody wallet
 {
-  "name": "Treasury Vault",
-  "type": "hot",
-  "blockchain": "ethereum",
-  "signingPolicy": {
-    "type": "multi-sig",
-    "requiredSignatures": 2,
-    "totalSigners": 3
-  }
+  "name": "Corporate Treasury Wallet",
+  "assetType": "XRP",
+  "policy": "multi-sig-policy-001",
+  "description": "Primary treasury wallet for XRP holdings"
 }
 ```
 
-### Submit a Transfer
-
 ```javascript
-// Node: Ripple Custody
-// Resource: Transfer
-// Operation: Create
-
+// Execute a transaction with approval workflow
 {
-  "fromVaultId": "vault-123",
-  "toAddress": "0x742d35Cc6634C0532925a3b844Bc9e7595f1Ed3B",
-  "asset": "ETH",
-  "amount": "1.5",
-  "memo": "Payment for services"
+  "fromWallet": "wallet-123",
+  "toAddress": "rDNvpMRVsEAg8VnWWpGGaNKmB9pqvkBcKr",
+  "amount": "1000.00",
+  "assetCode": "XRP",
+  "memo": "Monthly vendor payment",
+  "requiresApproval": true
 }
 ```
 
-### Screen Address for Compliance
-
 ```javascript
-// Node: Ripple Custody
-// Resource: Compliance
-// Operation: Screen Address
-
+// Get balance information for portfolio tracking
 {
-  "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f1Ed3B",
-  "blockchain": "ethereum",
-  "provider": "chainalysis"
+  "walletId": "wallet-123",
+  "assetCode": "XRP",
+  "includeHistory": true,
+  "timeframe": "30d"
 }
 ```
 
-## Supported Networks
-
-| Network | Symbol | Type |
-|---------|--------|------|
-| Bitcoin | BTC | UTXO |
-| Ethereum | ETH | EVM |
-| XRP Ledger | XRP | Native |
-| Solana | SOL | Native |
-| Polygon | MATIC | EVM |
-| Avalanche | AVAX | EVM |
-| Arbitrum | ARB | EVM L2 |
-| Optimism | OP | EVM L2 |
-| BNB Chain | BNB | EVM |
-| Cardano | ADA | Native |
-| Polkadot | DOT | Native |
-| Cosmos | ATOM | Native |
-| Tezos | XTZ | Native |
-| Algorand | ALGO | Native |
-| Stellar | XLM | Native |
+```javascript
+// Create approval policy for governance
+{
+  "name": "Large Transaction Policy",
+  "rules": {
+    "threshold": "10000.00",
+    "requiredApprovers": 2,
+    "timeoutHours": 24
+  },
+  "applicableAssets": ["XRP", "BTC", "ETH"]
+}
+```
 
 ## Error Handling
 
-The node provides comprehensive error handling:
-
-- **Authentication Errors**: Invalid API key, expired token, insufficient permissions
-- **Validation Errors**: Invalid parameters, missing required fields
-- **Business Logic Errors**: Insufficient balance, policy violations, compliance blocks
-- **Network Errors**: Timeout, rate limiting, service unavailable
-
-All errors include detailed messages and error codes for debugging.
-
-## Security Best Practices
-
-1. **Credential Security**: Store API keys securely using n8n's credential system
-2. **Multi-Signature**: Enable multi-sig policies for high-value vaults
-3. **Cold Storage**: Use cold storage for long-term asset holdings
-4. **Compliance Screening**: Always screen addresses before transfers
-5. **Audit Logging**: Enable comprehensive audit trails
-6. **IP Whitelisting**: Restrict API access to known IP addresses
-7. **Rate Limiting**: Implement appropriate rate limits
+| Error | Description | Solution |
+|-------|-------------|----------|
+| Authentication Failed | Invalid API key or expired credentials | Verify API key in Ripple Custody console |
+| Insufficient Balance | Transaction amount exceeds available balance | Check wallet balance before transaction |
+| Policy Violation | Transaction violates configured policies | Review and comply with approval policies |
+| Invalid Address | Destination address format is invalid | Validate address format for target network |
+| Rate Limit Exceeded | Too many API requests in time window | Implement request throttling and retry logic |
+| Transaction Timeout | Transaction approval or processing timeout | Check transaction status and retry if needed |
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Run tests
 npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Lint code
 npm run lint
-
-# Fix linting issues
-npm run lint:fix
-
-# Format code
-npm run format
+npm run dev
 ```
 
 ## Author
@@ -286,7 +206,6 @@ npm run format
 **Velocity BPA**
 - Website: [velobpa.com](https://velobpa.com)
 - GitHub: [Velocity-BPA](https://github.com/Velocity-BPA)
-- Email: [licensing@velobpa.com](mailto:licensing@velobpa.com)
 
 ## Licensing
 
@@ -296,33 +215,24 @@ This n8n community node is licensed under the **Business Source License 1.1**.
 Permitted for personal, educational, research, and internal business use.
 
 ### Commercial Use
-Use of this node within any SaaS, PaaS, hosted platform, managed service,
-or paid automation offering requires a commercial license.
+Use of this node within any SaaS, PaaS, hosted platform, managed service, or paid automation offering requires a commercial license.
 
-For licensing inquiries:
-**licensing@velobpa.com**
+For licensing inquiries: **licensing@velobpa.com**
 
 See [LICENSE](LICENSE), [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md), and [LICENSING_FAQ.md](LICENSING_FAQ.md) for details.
 
 ## Contributing
 
-Contributions are welcome! Please:
+Contributions are welcome! Please ensure:
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add/update tests
-5. Submit a pull request
+1. Code follows existing style conventions
+2. All tests pass (`npm test`)
+3. Linting passes (`npm run lint`)
+4. Documentation is updated for new features
+5. Commit messages are descriptive
 
 ## Support
 
-- **Documentation**: [GitHub Wiki](https://github.com/Velocity-BPA/n8n-nodes-ripple-custody/wiki)
 - **Issues**: [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-ripple-custody/issues)
-- **Email**: [support@velobpa.com](mailto:support@velobpa.com)
-
-## Acknowledgments
-
-- [Ripple](https://ripple.com/) for the Ripple Custody platform
-- [Metaco](https://metaco.com/) for the Harmonize infrastructure
-- [n8n](https://n8n.io/) for the workflow automation platform
-- The n8n community for their support and feedback
+- **Ripple Custody Documentation**: [Ripple Developer Portal](https://xrpl.org/ripple-custody.html)
+- **Enterprise Support**: [Ripple Enterprise](https://ripple.com/custody/)
